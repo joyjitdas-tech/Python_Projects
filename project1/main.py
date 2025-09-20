@@ -10,11 +10,25 @@ class Donor:
 class blood_donation_system:
     def __init__(self):
         self.donors = []
+    #new donor registar
     def register_donor(self,name,blood_type,contact_info,location):
         new_donor = Donor(name,blood_type,contact_info,location)
         self.donors.append(new_donor)
         print(f"Donor {name} registered successfully!")
-    #def serach_donor(self,blood_type,location):
+
+    #Method to find matching donor
+    def search_donor(self, blood_type, location=None):
+        donor_match = [
+        donor for donor in self.donors
+        if donor.blood_type == blood_type and (location is None or donor.location == location)
+    ]
+    
+        if donor_match:
+            for donor in donor_match:
+                print(f"Donor found: {donor.name}, Location: {donor.location}, Contact: {donor.contact_info}")
+        else:
+            print(" No donor found with given criteria.")
+
         
 #main function
 def main():
@@ -40,7 +54,7 @@ def main():
         elif choice == "2":
             blood_type = input("Enter your require Blood type: ")
             location = input("Enter Location: ")
-            blood_bank.serach_donor(blood_type,location)
+            blood_bank.search_donor(blood_type,location)
         elif choice == "3":
             print("Thank you for using Blood Donation system")
             break
